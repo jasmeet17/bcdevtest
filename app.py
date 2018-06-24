@@ -76,6 +76,7 @@ def index():
 def addUser():
     user_name = request.json.get('user_name')
     password = request.json.get('password')
+    access = request.json.get('access')
     response = REQUEST_FAIL
 
     if user_name is None or password is None:
@@ -83,7 +84,7 @@ def addUser():
         return jsonify(response)
     else:
         response = REQUEST_SUCCESS
-        new_user = Users(user_name, password)
+        new_user = Users(user_name, password, access)
         db.session.add(new_user)
         db.session.commit()
     return jsonify(response)
