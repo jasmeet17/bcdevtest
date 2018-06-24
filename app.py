@@ -24,8 +24,10 @@ REQUEST_SUCCESS = {'success': True}
 REQUEST_FAIL = {'success': False, 'error':''}
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'+ USER_NAME + ':' + PASSWORD + '@' + END_POINT
 db = SQLAlchemy(app)
+
 
 class Users(db.Model):
     __table__name = 'users'
@@ -63,7 +65,7 @@ def not_found(error):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return REQUEST_SUCCESS
+    return jsonify(REQUEST_SUCCESS)
 
 @app.route("/books", methods=["GET", "POST"])
 def books():
