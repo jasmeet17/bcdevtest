@@ -100,6 +100,8 @@ def addUser():
 @app.route("/add_book", methods=["POST"])
 def addBook():
     response = REQUEST_FAIL
+    response['USER_NAME']=USER_NAME
+    response['END_POINT']=END_POINT
     return jsonify(response)
     # user_name = request.json.get('user_name')
     # password = request.json.get('password')
