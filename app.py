@@ -8,17 +8,18 @@ from flask import make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 import re
+import os
 import json
 # from flask_sqlalchemy import exc
 from helper import Helper
 
-CRED_FILE = 'credentials.json'
-read_creds = open(CRED_FILE, 'r')
-creds = json.load(read_creds)
+# CRED_FILE = 'credentials.json'
+# read_creds = open(CRED_FILE, 'r')
+# creds = json.load(read_creds)
 
-END_POINT = creds['END_POINT']
-USER_NAME = creds['USER_NAME']
-PASSWORD = creds['PASSWORD']
+END_POINT = os.environ['END_POINT']
+USER_NAME = os.environ['USER_NAME']
+PASSWORD = os.environ['PASSWORD']
 
 REQUEST_SUCCESS = {'success': True}
 REQUEST_FAIL = {'success': False, 'error':''}
