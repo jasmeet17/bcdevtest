@@ -1,0 +1,13 @@
+#ignore temporary files
+/tmp/*
+/logs/*
+/static*
+
+#remove any compiled code
+*.pyc
+
+#credentials or Json file
+*.json
+
+# Any CSV file
+*.csv
