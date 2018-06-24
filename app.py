@@ -63,6 +63,10 @@ def not_found(error):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    return REQUEST_SUCCESS
+
+@app.route("/books", methods=["GET", "POST"])
+def books():
     books = Books.query.all()
     print type(books)
     print len(books)
@@ -154,4 +158,6 @@ def remove():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(host='0.0.0.0')
+    app.run()
+    
