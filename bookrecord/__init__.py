@@ -9,12 +9,10 @@ import re
 import os
 import json
 from helper import Helper
-from bookrecord.data.models import db, Users, Books
-from bookrecord.controllers.books import allBooks
-from bookrecord.controllers.addUser import addUserController
-from bookrecord.controllers.updateRating import updateRatingController
-from bookrecord.controllers.addBook import addBookController
-from bookrecord.controllers.removeBook import removeBookController
+from bookrecord.models.models import db, Users, Books
+from bookrecord.controllers.UserController import addNewUserController
+from bookrecord.controllers.BookController import allBooks, addBook, removeBook, updateRating
+
 from bookrecord.utils import get_instance_folder_path
 from bookrecord.config import configureApp
 import copy
@@ -44,19 +42,19 @@ def books():
 @app.route("/add_user", methods=["POST"])
 def addUser():
     """Add a user in the Database"""
-    return addUserController(request)
+    return addNewUserController(request)
 
 @app.route("/update_rating", methods=["PUT"])
-def updateRating():
+def update_rating():
     """Update rating of a book"""
-    return updateRatingController(request)
+    return updateRating(request)
 
 @app.route("/add_book", methods=["POST"])
-def addBook():
+def add_book():
     """Add a Book in the Database, if User has Access"""
-    return addBookController(request)
+    return addBook(request)
 
 @app.route("/remove_book", methods=["DELETE"])
-def removeBook():
+def remove_book():
     """Remove book form the Batabase, If user has Access"""
-    return removeBookController(request)
+    return removeBook(request)

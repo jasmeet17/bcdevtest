@@ -1,9 +1,9 @@
 from flask import jsonify
 import copy
 from bookrecord.helper import Helper
-from bookrecord.data.models import db, Users
+from bookrecord.models.models import db, Users
 
-def addUserController(request):
+def addNewUserController(request):
     """Add a user in the Database"""
     user_name = request.json.get('user_name')
     password = request.json.get('password')
