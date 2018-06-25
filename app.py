@@ -6,7 +6,7 @@ from flask import make_response
 # from flask.ext.sqlalchemy import SQLAlchemy
 # from flask_sqlalchemy import Flask-SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import exc
+from sqlalchemy import exc, inspect
 import re
 import os
 import json
