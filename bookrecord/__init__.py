@@ -3,8 +3,6 @@ from flask import request
 from flask import jsonify
 from flask import abort
 from flask import make_response
-# from flask.ext.sqlalchemy import SQLAlchemy
-# from flask_sqlalchemy import Flask-SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc, inspect
 import re
@@ -13,16 +11,18 @@ import json
 from helper import Helper
 from bookrecord.data.models import db, Users, Books
 from bookrecord.utils import get_instance_folder_path
+from bookrecord.config import configureApp
 
 
-END_POINT = os.environ['END_POINT']
-USER_NAME = os.environ['USER_NAME']
-PASSWORD = os.environ['PASSWORD']
+# END_POINT = os.environ['END_POINT']
+# USER_NAME = os.environ['USER_NAME']
+# PASSWORD = os.environ['PASSWORD']
 
 app = Flask(__name__,instance_path=get_instance_folder_path(),
             instance_relative_config=True)
 db.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'+ USER_NAME + ':' + PASSWORD + '@' + END_POINT
+configureApp(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'+ USER_NAME + ':' + PASSWORD + '@' + END_POINT
 
 
 
@@ -39,7 +39,7 @@ def not_found(error):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return jsonify(REQUEST_SUCCESS)
+    return jsonify(Helper.REQUEST_SUCCESS)
 
 @app.route("/books", methods=["GET", "POST"])
 def books():
