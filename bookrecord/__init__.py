@@ -23,7 +23,8 @@ PASSWORD = os.environ['PASSWORD']
 REQUEST_SUCCESS = {'success': True}
 REQUEST_FAIL = {'success': False, 'error':''}
 
-app = Flask(__name__,instance_relative_config=True)
+app = Flask(__name__,instance_path=get_instance_folder_path(),
+            instance_relative_config=True)
 db.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'+ USER_NAME + ':' + PASSWORD + '@' + END_POINT
 
