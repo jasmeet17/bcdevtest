@@ -19,10 +19,6 @@ END_POINT = os.environ['END_POINT']
 USER_NAME = os.environ['USER_NAME']
 PASSWORD = os.environ['PASSWORD']
 
-
-REQUEST_SUCCESS = {'success': True}
-REQUEST_FAIL = {'success': False, 'error':''}
-
 app = Flask(__name__,instance_path=get_instance_folder_path(),
             instance_relative_config=True)
 db.init_app(app)
@@ -59,13 +55,13 @@ def addUser():
     user_name = request.json.get('user_name')
     password = request.json.get('password')
     access = request.json.get('access')
-    response = REQUEST_FAIL
+    response = Helper.REQUEST_FAIL
 
     if user_name is None or password is None:
         response['error']="Please enter all details"
         return jsonify(response)
     else:
-        response = REQUEST_SUCCESS
+        response = Helper.REQUEST_SUCCESS
         new_user = Users(user_name, password, access)
         db.session.add(new_user)
         db.session.commit()
@@ -74,7 +70,7 @@ def addUser():
 
 @app.route("/add_book", methods=["POST"])
 def addBook():
-    response = REQUEST_FAIL
+    response = Helper.REQUEST_FAIL
     user_name = request.json.get('user_name')
     password = request.json.get('password')
 
@@ -85,7 +81,7 @@ def addBook():
         response['error']="User doesn't have add access"
         return jsonify(response)
 
-    response = REQUEST_SUCCESS
+    response = Helper.REQUEST_SUCCESS
 
     isbn = request.json.get('isbn')
     title = request.json.get('title')
@@ -100,14 +96,14 @@ def addBook():
         db.session.commit()
     except Exception as e:
         e_type , e_message =  Helper.parseException(e)
-        response = REQUEST_FAIL
+        response = Helper.REQUEST_FAIL
         response['error'] = e_message
         
     return jsonify(response)
 
 @app.route("/remove_book", methods=["DELETE"])
 def remove():
-    response = REQUEST_FAIL
+    response = Helper.REQUEST_FAIL
 
     user_name = request.json.get('user_name')
     password = request.json.get('password')
@@ -119,13 +115,13 @@ def remove():
         response['error']="User doesn't have Delete access"
         return jsonify(response)
 
-    response = REQUEST_SUCCESS
+    response = Helper.REQUEST_SUCCESS
 
     isbn = request.json.get('isbn')
     book = Books.query.filter_by(isbn=isbn).first()
 
     if book==None:
-        response = REQUEST_FAIL
+        response = Helper.REQUEST_FAIL
         response['error']="No such book exists"
         return jsonify(response)
     else:

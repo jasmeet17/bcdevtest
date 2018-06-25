@@ -1,6 +1,10 @@
 import re
 
 class Helper(object):
+    
+    REQUEST_SUCCESS = {'success': True}
+    REQUEST_FAIL = {'success': False, 'error':''}
+
     @staticmethod
     def parseException(e):
 
