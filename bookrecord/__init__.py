@@ -11,6 +11,8 @@ import re
 import os
 import json
 from helper import Helper
+from bookrecord.data.models import db, Users, Books
+from bookrecord.utils import get_instance_folder_path
 
 
 END_POINT = os.environ['END_POINT']
@@ -20,37 +22,12 @@ PASSWORD = os.environ['PASSWORD']
 
 REQUEST_SUCCESS = {'success': True}
 REQUEST_FAIL = {'success': False, 'error':''}
-print 'XXX'
-# app = Flask(__name__)
-from app import db, app
+
+app = Flask(__name__,instance_path=get_instance_folder_path(),
+            instance_relative_config=True)
+db.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'+ USER_NAME + ':' + PASSWORD + '@' + END_POINT
-# db = SQLAlchemy(app)
 
-
-class Users(db.Model):
-    __table__name = 'users'
-    id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    user_name = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
-    password = db.Column(db.String(80), unique=True, nullable=False, primary_key=False)
-    access = db.Column(db.Integer, unique=False, nullable=False, primary_key=False)
-
-    def __repr__(self):
-        return self.user_name
-
-
-class Books(db.Model):
-    __table__name = 'books'
-    isbn = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    title = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
-    author = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
-    genre = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
-    price = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
-    
-    def __repr__(self):
-        return self.isbn
-    
-    def toDict(self):
-        return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }
 
 
 def hasAddDeleteAccess(user_name, password):
@@ -155,9 +132,4 @@ def remove():
         db.session.delete(book)
         db.session.commit()
     return jsonify(response)
-
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
-    # app.run()
     
