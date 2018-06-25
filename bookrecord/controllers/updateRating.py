@@ -5,12 +5,11 @@ from bookrecord.data.models import db, Books, Users
 
 def updateRatingController(request):
     """Update rating of a book"""
-    print 'XXXXXX'
     response = copy.deepcopy(Helper.REQUEST_FAIL)
     user_name = request.json.get('user_name')
     password = request.json.get('password')
 
-    if user_name is None and password is None:
+    if user_name is None or password is None:
         response['error']="User detail incorrect"
         return jsonify(response)
     elif not hasUpdateAccess(user_name, password):
