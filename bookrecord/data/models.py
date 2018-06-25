@@ -7,7 +7,7 @@ db = SQLAlchemy()
 class Users(db.Model):
     __table__name = 'users'
     id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    user_name = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    user_name = db.Column(db.String(80), unique=True, nullable=False, primary_key=False)
     password = db.Column(db.String(80), unique=True, nullable=False, primary_key=False)
     access = db.Column(db.Integer, unique=False, nullable=False, primary_key=False)
 
@@ -22,6 +22,7 @@ class Books(db.Model):
     author = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
     genre = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
     price = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
+    rating = db.Column(db.Integer, unique=False, nullable=False, primary_key=False, default=10)
     
     def __repr__(self):
         return self.isbn

@@ -7,7 +7,7 @@ class Helper(object):
 
     @staticmethod
     def parseException(e):
-
+        """Parse an exception object and returns Type and Message"""
         exceptionType = Helper.parseExceptionType(e.args[0])
         message = Helper.parseExceptionMessage(e.args[0])
         
@@ -15,6 +15,7 @@ class Helper(object):
 
     @staticmethod
     def parseExceptionType(excMessage):
+        """Parse Exception type from the Given String"""
         found = ''
         try:
             found = re.search('_mysql_exceptions.(.+?)error', excMessage).group(1)
@@ -24,6 +25,7 @@ class Helper(object):
 
     @staticmethod
     def parseExceptionMessage(excMessage):
+        """Parse Exception Message from the Given String"""
         message = re.findall(r'"([^"]*)"', excMessage)
         
         if len(message)==1:
