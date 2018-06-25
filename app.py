@@ -51,6 +51,9 @@ class Books(db.Model):
     
     def __repr__(self):
         return self.isbn
+    
+    def toDict(self):
+        return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }
 
 
 def hasAddDeleteAccess(user_name, password):
@@ -71,13 +74,11 @@ def index():
 @app.route("/books", methods=["GET", "POST"])
 def books():
     books = Books.query.all()
-    print type(books)
-    print len(books)
-    print type(books[0])
+    booksArr=[]
 
     for book in books:
-        print book.isbn, book.title, book.author, book.genre, book.price
-    return "books"
+        booksArr.append(book.toDict())
+    return jsonify(booksArr)
 
 @app.route("/add_user", methods=["POST"])
 def addUser():
