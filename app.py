@@ -10,24 +10,21 @@ from sqlalchemy import exc, inspect
 import re
 import os
 import json
-# from flask_sqlalchemy import exc
 from helper import Helper
 
-# CRED_FILE = 'credentials.json'
-# read_creds = open(CRED_FILE, 'r')
-# creds = json.load(read_creds)
 
 END_POINT = os.environ['END_POINT']
 USER_NAME = os.environ['USER_NAME']
 PASSWORD = os.environ['PASSWORD']
 
+
 REQUEST_SUCCESS = {'success': True}
 REQUEST_FAIL = {'success': False, 'error':''}
-
-app = Flask(__name__)
-
+print 'XXX'
+# app = Flask(__name__)
+from app import db, app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'+ USER_NAME + ':' + PASSWORD + '@' + END_POINT
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 
 class Users(db.Model):
