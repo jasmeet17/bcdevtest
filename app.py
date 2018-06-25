@@ -100,38 +100,35 @@ def addUser():
 @app.route("/add_book", methods=["POST"])
 def addBook():
     response = REQUEST_FAIL
-    response['USER_NAME']=USER_NAME
-    response['END_POINT']=END_POINT
-    return jsonify(response)
-    # user_name = request.json.get('user_name')
-    # password = request.json.get('password')
+    user_name = request.json.get('user_name')
+    password = request.json.get('password')
 
-    # if user_name is None and password is None:
-    #     response['error']="User detail incorrect"
-    #     return jsonify(response)
-    # elif not hasAddDeleteAccess(user_name, password):
-    #     response['error']="User doesn't have add access"
-    #     return jsonify(response)
+    if user_name is None and password is None:
+        response['error']="User detail incorrect"
+        return jsonify(response)
+    elif not hasAddDeleteAccess(user_name, password):
+        response['error']="User doesn't have add access"
+        return jsonify(response)
 
-    # response = REQUEST_SUCCESS
+    response = REQUEST_SUCCESS
 
-    # isbn = request.json.get('isbn')
-    # title = request.json.get('title')
-    # author = request.json.get('author')
-    # genre = request.json.get('genre')
-    # price = request.json.get('price')
-    # print isbn, title
-    # book = Books(isbn=isbn, title=title, author=author, genre=genre, price=price)
+    isbn = request.json.get('isbn')
+    title = request.json.get('title')
+    author = request.json.get('author')
+    genre = request.json.get('genre')
+    price = request.json.get('price')
+    print isbn, title
+    book = Books(isbn=isbn, title=title, author=author, genre=genre, price=price)
     
-    # try:
-    #     db.session.add(book)
-    #     db.session.commit()
-    # except Exception as e:
-    #     e_type , e_message =  Helper.parseException(e)
-    #     response = REQUEST_FAIL
-    #     response['error'] = e_message
+    try:
+        db.session.add(book)
+        db.session.commit()
+    except Exception as e:
+        e_type , e_message =  Helper.parseException(e)
+        response = REQUEST_FAIL
+        response['error'] = e_message
         
-    # return jsonify(response)
+    return jsonify(response)
 
 @app.route("/remove_book", methods=["DELETE"])
 def remove():
