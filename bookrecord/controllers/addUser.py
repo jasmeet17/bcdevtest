@@ -10,7 +10,7 @@ def addUserController(request):
     access = request.json.get('access')
     response = copy.deepcopy(Helper.REQUEST_FAIL)
 
-    if user_name is None or password is None or user_name="" or password="":
+    if user_name==None or password==None or user_name=="" or password=="":
         response['error']="Please enter all details"
         return jsonify(response)
     elif access!=None and access>1 or access<0:
