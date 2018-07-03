@@ -8,7 +8,7 @@ This repository contains FLASK REST APIs project which perform CRUD operations. 
 ```sh
 $ git clone https://github.com/jasmeet17/bcdevtest.git
 $ cd bcdevtest
-$ FLASK_APP=run.py flask run
+$ FLASK_APP=app.py flask run
 ```
 
 I have deployed my Database on AWS and Flask app on Heroku. I choose Heroku for deploying my application becuase of its simplicity and its free. I have set configuration variables in my heroku applicartion to connect it with MySql on AWS. If you are running locally make sure you provide the enviornment variables mentioned in the config.py
